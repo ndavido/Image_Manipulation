@@ -42,7 +42,30 @@ bool Image::loadRaw(string filename)
 }
 bool Image::savePPM(string filename)
 {
-    return false;
+    if (w == 0 ||h == 0) {
+        return false;
+    }
+    std::ofstream ofs;
+    try {
+        ofs.open(filename, std::ios::binary); // need to spec. binary mode for Windows users
+        if (ofs.fail()) throw("Can't open output file");
+        ofs << "P6\n" << w << " " << h << "\n255\n";
+        unsigned char pix[3];
+        // loop over each pixel in the image, clamp and convert to byte format
+        for (int i = 0; i < w * h; i++) {
+            pix[0] = static_cast<unsigned char>(this->pixels[i].r);
+            pix[1] = static_cast<unsigned char>(this->pixels[i].g);
+            pix[2] = static_cast<unsigned char>(this->pixels[i].b);
+            ofs.write(reinterpret_cast<char *>(pix), 3);
+        }
+        ofs.close();
+
+    }
+    catch (const char *err) {
+        fprintf(stderr, "%s\n", err);
+        ofs.close();
+    }
+    return true;
 }
 
 
