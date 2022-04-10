@@ -38,6 +38,7 @@ bool Image::load(string filename)
 }
 bool Image::loadRaw(string filename)
 {
+
     return false;
 }
 bool Image::savePPM(string filename)
@@ -93,6 +94,7 @@ void Image::filterBlue()
         this->pixels[i].g = 0;
     }
 }
+
 void Image::greyScale()
 {
     for (int i = 0; i < w*h; i++)
@@ -103,13 +105,39 @@ void Image::greyScale()
         this->pixels[i].b = greyscaleValue;
     }
 }
+
 void Image::flipHorizontal()
 {
+    unsigned int pixel1;
+    unsigned int pixel2;
 
+    for(int x = 0; x < w/2; x++){
+        for(int y = 0; y < h; y++){
+            pixel1 = x + y * w;
+            pixel2 = (w - 1 - x) + y * w;
+
+            swap(pixels[pixel1].r, pixels[pixel2].r);
+            swap(pixels[pixel1].g, pixels[pixel2].g);
+            swap(pixels[pixel1].b, pixels[pixel2].b);
+
+        }
+    }
 }
 void Image::flipVertically()
 {
+    unsigned int pixel1;
+    unsigned int pixel2;
 
+    for(int x = 0; x < w; x++){
+        for(int y = 0; y < h/2; y++){
+            pixel1 = x + y * w;
+            pixel2 = x + (h - 1 - y) * w;
+
+            swap(pixels[pixel1].r, pixels[pixel2].r);
+            swap(pixels[pixel1].g, pixels[pixel2].g);
+            swap(pixels[pixel1].b, pixels[pixel2].b);
+        }
+    }
 }
 
 void Image::AdditionalFunction1()
