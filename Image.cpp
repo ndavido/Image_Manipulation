@@ -38,7 +38,21 @@ bool Image::load(string filename)
 }
 bool Image::loadRaw(string filename)
 {
-
+    ifstream input(filename);
+    if(input.good()){
+        input >> w;
+        input >> h;
+        for(int i = 0; i < w*h; i++){
+            float r, g, b;
+            input >> r >> g >> b;
+            pixels[i].r = (unsigned char) (r*255);
+            pixels[i].g = (unsigned char) (g*255);
+            pixels[i].b = (unsigned char) (b*255);
+            cout << r << pixels[i].r << endl;
+        }
+        input.close();
+        return true;
+    }
     return false;
 }
 bool Image::savePPM(string filename)
@@ -142,7 +156,10 @@ void Image::flipVertically()
 
 void Image::AdditionalFunction1()
 {
-
+    for (int i = 0; i < w * h; i++) {
+        swap(pixels[i].r, pixels[i].g);
+        swap(pixels[i].b, pixels[i].r);
+    }
 }
 void Image::AdditionalFunction2()
 {
