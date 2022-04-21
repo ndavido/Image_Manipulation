@@ -157,13 +157,18 @@ void Image::flipVertically()
 void Image::AdditionalFunction1()
 {
     for (int i = 0; i < w * h; i++) {
-        swap(pixels[i].r, pixels[i].g);
-        swap(pixels[i].b, pixels[i].r);
+        swap(pixels[i].r, pixels[i].b);
+        swap(pixels[i].g, pixels[i].r);
     }
 }
 void Image::AdditionalFunction2()
 {
-
+    for (int i = 0; i < w*h; i++)
+    {
+        this->pixels[i].r /= 0.5;
+        this->pixels[i].g /= 0.5;
+        this->pixels[i].b /= 0.5;
+    }
 }
 void Image::AdditionalFunction3()
 {
