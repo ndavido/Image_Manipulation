@@ -173,6 +173,12 @@ void Image::AdditionalFunction2()
 void Image::AdditionalFunction3()
 {
 
+    for (int i = 0; i < w*h; i++)
+    {
+        this->pixels[i].r *= 255;
+        this->pixels[i].g *= 255;
+        this->pixels[i].b *= 255;
+    }
 }
 
 
