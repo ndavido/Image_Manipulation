@@ -165,9 +165,17 @@ void Image::AdditionalFunction2()
 {
     for (int i = 0; i < w*h; i++)
     {
-        this->pixels[i].r /= 2;
-        this->pixels[i].g /= 2;
-        this->pixels[i].b /= 2;
+        if(this->pixels[i].r>(255/2)){
+            this->pixels[i].r = 255;
+            this->pixels[i].g = 255;
+            this->pixels[i].b = 255;
+        }
+        else{
+            this->pixels[i].r = 0;
+            this->pixels[i].g = 0;
+            this->pixels[i].b = 0;
+        }
+
     }
 }
 void Image::AdditionalFunction3()
@@ -175,9 +183,9 @@ void Image::AdditionalFunction3()
 
     for (int i = 0; i < w*h; i++)
     {
-        this->pixels[i].r *= 255;
-        this->pixels[i].g *= 255;
-        this->pixels[i].b *= 255;
+        this->pixels[i].r = 255 - this->pixels[i].r;
+        this->pixels[i].g = 255 - this->pixels[i].g;
+        this->pixels[i].b = 255 - this->pixels[i].b;
     }
 }
 
