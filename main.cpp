@@ -22,6 +22,8 @@ using namespace std;
 #define IDM_EDIT_AD3 13
 #define IDM_FILE_LOAD_RAW 14
 #define IDM_EDIT_AF1 15
+
+#define SET_MASK 16
 string current_file;
 string fileType;
 // The main window class name.
@@ -42,6 +44,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     AppendMenuW(hMenu, MF_STRING, IDM_EDIT_Reset, L"&Reload");
     AppendMenuW(hMenu, MF_SEPARATOR, 0, NULL);
     AppendMenuW(hMenu, MF_STRING, IDM_FILE_QUIT, L"&Quit");
+    AppendMenuW(hMenu, MF_STRING, SET_MASK, L"&Load Mask");
 
     AppendMenuW(Alter, MF_STRING, IDM_EDIT_Greyscale, L"&Greyscale"); // Copy this line to add
                                                                                                  // more items to the Edit menu;
@@ -80,6 +83,14 @@ void processMenu(HWND hWnd, WPARAM wParam)
                 MessageBox(NULL, _T("Error Loading image! Please try again"),
                            _T("Load Error"),0);
             }
+            break;
+        case SET_MASK: {
+            string mask = openfilename("Image (*.ppm)\0*.ppm\0\0", hWnd);
+            fileType = "ppm";
+            image->setMask(mask);
+            image->AdvancedFeature();
+
+        }
             break;
         case IDM_FILE_LOAD_RAW:
             current_file = openfilename("Image (*.raw)\0*.raw\0\0", hWnd);

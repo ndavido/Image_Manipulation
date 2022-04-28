@@ -32,6 +32,7 @@ class Image {
     }
 
     unsigned int w, h;
+    string mask;
     Rgb *pixels;
 public:
     Image() : w(300), h(400)
@@ -41,6 +42,7 @@ public:
     bool savePPM(string filename);
     bool load(string filename);
     bool loadRaw(string filename);
+    void setMask(string s);
     void filterRed();
     void filterGreen();
     void filterBlue();

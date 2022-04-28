@@ -178,7 +178,6 @@ void Image::AdditionalFunction2()
 }
 void Image::AdditionalFunction3()
 {
-
     for (int i = 0; i < w*h; i++)
     {
         this->pixels[i].r = 255 - this->pixels[i].r;
@@ -187,9 +186,43 @@ void Image::AdditionalFunction3()
     }
 }
 
+void Image::setMask(string s)
+{
+    this->mask = s;
+}
+
 void Image::AdvancedFeature()
 {
+   Image i;
+   i.load(mask);
 
+   for(int y =0; y < h; y++)
+   {
+       for(int x =0; x < w; x++)
+       {
+           int pixel_x = y*w+x;
+
+           if(x < i.w && y < i.h)
+           {
+               int mask_x = y*i.w+x;
+
+//               mask_x
+
+               if (i.pixels[mask_x].r < 20 && i.pixels[mask_x].g < 20 && i.pixels[mask_x].b < 20)
+               {
+                   pixels[pixel_x].r = 0;
+                   pixels[pixel_x].g = 0;
+                   pixels[pixel_x].b = 0;
+               }
+           }
+           else
+           {
+               pixels[pixel_x].r = 0;
+               pixels[pixel_x].g = 0;
+               pixels[pixel_x].b = 0;
+           }
+       }
+   }
 }
 
 /* Functions used by the GUI - DO NOT MODIFY */
