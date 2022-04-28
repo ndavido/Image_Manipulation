@@ -187,6 +187,11 @@ void Image::AdditionalFunction3()
     }
 }
 
+void Image::AdvancedFeature()
+{
+
+}
+
 /* Functions used by the GUI - DO NOT MODIFY */
 int Image::getWidth()
 {
