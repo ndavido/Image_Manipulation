@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <cstring>
 #include "Image.h"
+#include <valarray>
 
 bool Image::load(string filename)
 {
@@ -36,25 +37,26 @@ bool Image::load(string filename)
     return false;
 
 }
+
 bool Image::loadRaw(string filename)
 {
-    ifstream input(filename);
-    if(input.good()){
-        input >> w;
-        input >> h;
+    ifstream ifs(filename);
+    if(ifs.good()){
+        ifs >> w;
+        ifs >> h;
         for(int i = 0; i < w*h; i++){
             float r, g, b;
-            input >> r >> g >> b;
-            pixels[i].r = (unsigned char) (r*255);
-            pixels[i].g = (unsigned char) (g*255);
-            pixels[i].b = (unsigned char) (b*255);
-            cout << r << pixels[i].r << endl;
+            ifs >> r >> g >> b;
+            pixels[i].r =  pow(r, 1/2.2) * 255;
+            pixels[i].g =  pow(g, 1/2.2) * 255;
+            pixels[i].b =  pow(b, 1/2.2) * 255;
         }
-        input.close();
+        ifs.close();
         return true;
     }
     return false;
 }
+
 bool Image::savePPM(string filename)
 {
     if (w == 0 ||h == 0) {
@@ -184,7 +186,6 @@ void Image::AdditionalFunction3()
         this->pixels[i].b = 255 - this->pixels[i].b;
     }
 }
-
 
 /* Functions used by the GUI - DO NOT MODIFY */
 int Image::getWidth()
