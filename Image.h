@@ -43,7 +43,7 @@ public:
     bool load(string filename);
     bool loadRaw(string filename);
     void setMask(string s);
-    void scaling();
+    void scaling(int width, int height);
     void filterRed();
     void filterGreen();
     void filterBlue();

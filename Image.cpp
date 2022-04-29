@@ -188,10 +188,10 @@ void Image::AdditionalFunction3()
 
 
 
-void Image::scaling()
+void Image::scaling(int width, int height)
 {
-    int newW = 540;
-    int newH = 810;
+    int newW = width;
+    int newH = height;
     Rgb *temp = new Rgb[newW *newH];
     //Finding difference in w/h
     double diffX = (double) w / newW;
@@ -223,14 +223,13 @@ void Image::AdvancedFeature()
 {
    Image i;
    i.load(mask);
-   i.scaling();
+   i.scaling(w,h);
    int x, y;
    for(y = 0; y < h; y++)
    {
        for(x = 0; x < w; x++)
        {
            int pixel_x = y*w+x;
-
            if(x < i.w && y < i.h)
            {
                int mask_x = y*i.w+x;
