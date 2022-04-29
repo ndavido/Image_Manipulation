@@ -88,7 +88,6 @@ void processMenu(HWND hWnd, WPARAM wParam)
             string mask = openfilename("Image (*.ppm)\0*.ppm\0\0", hWnd);
             fileType = "ppm";
             image->setMask(mask);
-            image->AdvancedFeature();
 
         }
             break;
