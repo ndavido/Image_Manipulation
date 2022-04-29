@@ -186,6 +186,34 @@ void Image::AdditionalFunction3()
     }
 }
 
+
+
+void Image::scaling()
+{
+    int newW = 540;
+    int newH = 810;
+    Rgb *temp = new Rgb[newW *newH];
+    //Finding difference in w/h
+    double diffX = (double) w / newW;
+    double diffY = (double) h / newH;
+    double cy = 0;
+    for (int y = 0; y < newH; y++) {
+        double cx = 0;
+        for (int x = 0; x < newW; x++) {
+            int nextX = cx;
+            int nextY = cy;
+            temp[x + y * newW] = pixels[nextX + nextY * w]; //points to current pixel
+            cx += diffX; //current
+        }
+        cy += diffY;
+    }
+    pixels = temp;
+    w = newW;
+    h = newH;
+    temp = nullptr;
+    delete[] temp;
+}
+
 void Image::setMask(string s)
 {
     this->mask = s;
@@ -195,18 +223,17 @@ void Image::AdvancedFeature()
 {
    Image i;
    i.load(mask);
-
-   for(int y =0; y < h; y++)
+   i.scaling();
+   int x, y;
+   for(y = 0; y < h; y++)
    {
-       for(int x =0; x < w; x++)
+       for(x = 0; x < w; x++)
        {
            int pixel_x = y*w+x;
 
            if(x < i.w && y < i.h)
            {
                int mask_x = y*i.w+x;
-
-//               mask_x
 
                if (i.pixels[mask_x].r < 20 && i.pixels[mask_x].g < 20 && i.pixels[mask_x].b < 20)
                {
@@ -223,6 +250,8 @@ void Image::AdvancedFeature()
            }
        }
    }
+   cout << w << endl;
+   cout << h << endl;
 }
 
 /* Functions used by the GUI - DO NOT MODIFY */
